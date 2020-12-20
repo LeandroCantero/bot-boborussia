@@ -2,14 +2,15 @@ import tweepy
 import logging
 import time
 import random
+import config
 from datetime import datetime, timedelta
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
 # Authenticate to Twitter
-auth = tweepy.OAuthHandler("lqHgUYzMJUXW3tjoQUZqhUe5P", "cto3v6CKRcX3mjxSygQe35XFRk4JWCRZJA5TpqT3NxWJLBC2gw")
-auth.set_access_token("1340452358485123072-iC2xVPaSdvl8QZbgjBHVqIf81axLsM", "Y1H3Er72nIbzuzfW1tEbKcqiC3mzcLcfESV8yo8a2mVbB")
+auth = tweepy.OAuthHandler(config.api_key, config.api_secret)
+auth.set_access_token(config.access_token, config.token_secret)
 
 # Create API object
 api = tweepy.API(auth)
@@ -20,6 +21,7 @@ randomquote = random.choice(open('quotes.txt').readlines())
 
 def main():
     tweet_daily(api, last_tweeted, randomquote)
+    print(config.api_key)
 
 # Daily tweet
 def tweet_daily(api, last_tweeted, randomtext):
